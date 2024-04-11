@@ -1,0 +1,36 @@
+<h1 class="display-6 text-center">Forecast table for London</h1>
+
+<app-forecast-select
+  [options]="selectOptions"
+  [(value)]="selectValue"
+  (valueChange)="paginatorValue = 1"
+/>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th
+        scope="col"
+        *ngFor="let label of forecastData.tableHeader"
+      >
+        {{ label | prettier:forecastUnits }}
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr
+      *ngFor="let row of paginatedData; index as rowNum"
+      [appLastHour]="row[0]"
+      [appNow]="row[0]"
+    >
+      <td *ngFor="let colValue of row; index as colNum">
+        {{ colNum === 0 ? (colValue | date:'medium') : colValue }}
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<app-forecast-paginator
+  [values]="paginatorArr"
+  [(selectedPage)]="paginatorValue"
+/>

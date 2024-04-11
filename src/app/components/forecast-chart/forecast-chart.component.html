@@ -1,0 +1,22 @@
+<h1 class="display-6 text-center">Forecast chart for London</h1>
+
+<div class="selectors">
+  <app-forecast-select
+    [options]="filterSelectOptions"
+    [(value)]="filterSelectValue"
+  />
+  <div class="datasets">
+    <p>Dataset:</p>
+    <app-forecast-select
+      [options]="datasetSelectOptions"
+      [(value)]="datasetSelectValue"
+    />
+  </div>
+</div>
+
+<p-chart
+  type="line"
+  *ngIf="xAxeData.length > 0 && yAxeData.length > 0"
+  [data]="selectedDataset.data"
+  [options]="selectedDataset.options"
+></p-chart>

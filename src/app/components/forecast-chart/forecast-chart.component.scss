@@ -1,0 +1,14 @@
+.selectors,
+.datasets {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.selectors {
+  justify-content: space-between;
+}
+
+.datasets {
+  align-items: baseline;
+}

@@ -1,0 +1,20 @@
+<div class="container">
+  <form (submit)="onFormSubmit($event, userEmailRef, userPasswordRef)">
+    <h1 class="display-6 text-center">User Login</h1>
+
+    <div class="form-floating mb-3">
+      <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" #userEmailRef>
+      <label for="floatingInput">Email address</label>
+    </div>
+    <div class="form-floating">
+      <input type="password" class="form-control" id="floatingPassword" placeholder="Password" #userPasswordRef>
+      <label for="floatingPassword">Password</label>
+    </div>
+    <button
+      type="submit"
+      class="btn btn-outline-primary btn-lg"
+    >
+      Sign In
+    </button>
+  </form>
+</div>

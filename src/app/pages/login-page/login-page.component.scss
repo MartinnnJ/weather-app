@@ -1,0 +1,15 @@
+@import "../../shared/variables";
+
+h1.display-6 {
+  margin: $page-header-margin 0;
+}
+
+form {
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+button {
+  width: 100%;
+  margin-top: 1rem;
+}

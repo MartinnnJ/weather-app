@@ -1,0 +1,33 @@
+<nav aria-label="Page navigation example">
+  <ul
+    class="pagination"
+    (click)="onPaginatorClick($event)"
+  >
+
+    <li class="page-item">
+      <a class="page-link" aria-label="Previous">
+        <span aria-hidden="true">&laquo;</span>
+      </a>
+    </li>
+
+    <li
+      class="page-item"
+      [ngClass]="{ 'active': page === selectedPage }"
+      *ngFor="let page of values"
+    >
+      <a
+        class="page-link"
+        [attr.data-page]="page"
+      >
+        {{ page }}
+      </a>
+    </li>
+
+    <li class="page-item">
+      <a class="page-link" aria-label="Next">
+        <span aria-hidden="true">&raquo;</span>
+      </a>
+    </li>
+
+  </ul>
+</nav>

@@ -1,1 +1,23 @@
-/* You can add global styles to this file, and also import other style files */
+@import './app/shared/variables';
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+ul {
+  list-style: none;
+  padding-left: 0;
+  color: black;
+}
+
+a {
+  text-decoration: none;
+}
+
+.container .display-6 {
+  margin: $page-header-margin 0;
+}
