@@ -1,3 +1,4 @@
+import { Location } from '@angular/common';
 import { Component } from '@angular/core';
 
 @Component({
@@ -6,6 +7,8 @@ import { Component } from '@angular/core';
   styleUrl: './login-page.component.scss'
 })
 export class LoginPageComponent {
+  constructor(private _location: Location) {}
+
   onFormSubmit(
     event: SubmitEvent,
     emailRef: HTMLInputElement,
@@ -13,5 +16,9 @@ export class LoginPageComponent {
   ) {
     event.preventDefault();
     console.log(emailRef.value, passwordRef.value);
+  }
+
+  onNavigateBack() {
+    this._location.back();
   }
 }

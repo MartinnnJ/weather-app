@@ -1,0 +1,38 @@
+<h2
+  class="display-6 text-center"
+  *ngIf="tableData.length === 0; else table"
+>
+  No previous data for display
+</h2>
+
+<ng-template #table>
+  <div class="wrapper">
+    <p>Previous calculations:</p>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Time</th>
+          <th scope="col">Relative Humidity</th>
+          <th scope="col">Temperature</th>
+          <th scope="col">Heat Index</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let row of tableData; index as ii">
+          <td>{{ ii + 1 }}</td>
+          <td>{{ row[6] }}</td>
+          <td>{{ row[0] }}</td>
+          <td>{{ row[1] }} {{ row[2] }}</td>
+          <td>
+            <strong>{{ row[3] }} {{ row[2] }}</strong>
+            ({{ row[4] }} {{ row[5] }})
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="clear">
+      <small (click)="onTableClear()">Clear table</small>
+    </div>
+  </div>
+</ng-template>

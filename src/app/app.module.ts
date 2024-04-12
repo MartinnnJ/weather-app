@@ -20,6 +20,9 @@ import { ForecastTableComponent } from './components/forecast-table/forecast-tab
 import { ForecastSelectComponent } from './components/forecast-select/forecast-select.component';
 import { ForecastPaginatorComponent } from './components/forecast-paginator/forecast-paginator.component';
 import { ForecastChartComponent } from './components/forecast-chart/forecast-chart.component';
+import { CalculatorComponent } from './components/calculator/calculator.component';
+import { HistoryTableComponent } from './components/history-table/history-table.component';
+import { LoadingMsgComponent } from './components/loading-msg/loading-msg.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +40,9 @@ import { ForecastChartComponent } from './components/forecast-chart/forecast-cha
     ForecastSelectComponent,
     ForecastPaginatorComponent,
     ForecastChartComponent,
+    CalculatorComponent,
+    HistoryTableComponent,
+    LoadingMsgComponent,
   ],
   imports: [
     BrowserModule,

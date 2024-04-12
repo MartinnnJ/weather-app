@@ -54,7 +54,7 @@ export class ForecastChartComponent implements OnInit {
       formattedXData,
       this.filteredData.filteredYData[this.datasetSelectValue],
       datasetName!.label,
-      'blue'
+      '#0d6efd'
     );
   }
 

@@ -1,0 +1,65 @@
+<h1 class="display-6 text-center">Heat Index Calculator</h1>
+
+<div class="calculator">
+
+  <form (submit)="onFormSubmit($event)">
+
+    <div>
+      <label for="basic-url" class="form-label">Relative Humidity</label>
+      <div class="input-group">
+        <input
+          type="number"
+          class="form-control"
+          id="basic-url"
+          aria-describedby="basic-addon3 basic-addon4"
+          [value]="humidityValue"
+          (input)="onHumidityInputChange($event)"
+        >
+        <span class="input-group-text" id="basic-addon3">%</span>
+      </div>
+    </div>
+
+    <div>
+      <label for="basic-url2" class="form-label">Temperature</label>
+      <div class="input-group">
+        <input
+          type="number"
+          class="form-control"
+          id="basic-url2"
+          aria-describedby="basic-addon3 basic-addon4"
+          [value]="temperatureValue"
+          (input)="onTemperatureInputChange($event)"
+        >
+        <span class="input-group-text" id="basic-addon3">
+          {{ units[selectValue] }}
+        </span>
+      </div>
+      <!-- <div class="form-text" id="basic-addon4">Example help text goes outside the input group.</div> -->
+    </div>
+  
+    <app-forecast-select
+      [options]="selectOptions"
+      [(value)]="selectValue"
+    />
+
+    <button type="submit" class="btn btn-primary">Calculate</button>
+
+  </form>
+
+  <div class="preview bg-body-tertiary">
+    <p>
+      <span>{{ humidityValue }}</span>
+      % /
+      <span>{{ temperatureValue }}</span>
+      {{ units[selectValue] }} =
+      <span *ngIf="result > 0 && resultReversed > 0">
+        <span class="result">{{ result }}</span>
+        {{ units[selectValue] }}
+        (<span class="result-reverse">{{ resultReversed }}</span>
+        {{ reversedUnit }})
+      </span>
+    </p>
+  </div>
+</div>
+
+<div class="history"></div>

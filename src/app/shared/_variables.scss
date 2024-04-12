@@ -3,5 +3,6 @@ $page-header-margin: 2rem;
 $navbar-height: 75px;
 $navbar-link-radius: 6px;
 
-$link-color-active: #6610f2;
-$link-color-hover: lighten($link-color-active, 40%);
+$link-color-active: #712cf9; // #712cf9, #6610f2
+$link-color-hover: lighten($link-color-active, 32%);
+$link-color: #0d6efd;

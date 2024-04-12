@@ -5,6 +5,4 @@ import { Component } from '@angular/core';
   templateUrl: './heat-index-page.component.html',
   styleUrl: './heat-index-page.component.scss'
 })
-export class HeatIndexPageComponent {
-
-}
+export class HeatIndexPageComponent {}
