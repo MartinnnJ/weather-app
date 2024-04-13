@@ -29,7 +29,6 @@ export class CalculatorComponent {
 
   onFormSubmit(event: SubmitEvent) {
     event.preventDefault();
-
     if (this.selectValue === 0) {
       // temp. is in celsius, we must convert it to fahrenheit
       const convertedTemp = this._calcService.celsiusToFahrenheit(this.temperatureValue);
@@ -44,7 +43,7 @@ export class CalculatorComponent {
       this.result = resultInFahrenheit;
       this.resultReversed = this._calcService.fahrenheitToCelsius(resultInFahrenheit);
     }
-    console.log('submitted...')
+    
     this._calcService.calculation.next([
       this.humidityValue,
       this.temperatureValue,
@@ -52,6 +51,7 @@ export class CalculatorComponent {
       this.result,
       this.resultReversed,
       this.reversedUnit,
+      this._calcService.currentTime()
     ]);
   }
 

@@ -5,7 +5,7 @@ import { Subject } from 'rxjs';
   providedIn: 'root'
 })
 export class CalculatorService {
-  calculation = new Subject<(number | string)[]>();
+  calculation = new Subject<(string | number)[]>();
 
   // https://www.calculator.net/heat-index-calculator.html
   calculateHeatIndex(fahrenheit: number, humidity: number) {
@@ -49,6 +49,8 @@ export class CalculatorService {
     temp.unshift(rowArr);
     if (temp.length > 5) temp.pop();
     localStorage.setItem('heat-index', JSON.stringify(temp));
+
+    return JSON.parse(localStorage.getItem('heat-index') as string);
   }
   
   readFromLocalStorage() {
