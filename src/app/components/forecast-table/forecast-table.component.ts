@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ForecastService } from '../../services/forecast.service';
 import ForecastUnits from '../../models/forecast-units.model';
 import SelectOptions from '../../models/select-options.model';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-forecast-table',
@@ -9,14 +10,15 @@ import SelectOptions from '../../models/select-options.model';
   styleUrl: './forecast-table.component.scss'
 })
 export class ForecastTableComponent implements OnInit {
+  isLoading = false;
+  isLoadingError = false;
+  errorData!: { name: string, msg: string };
+
   forecastUnits!: ForecastUnits;
   forecastData: {
     tableHeader: string[],
     tableBody: any[][],
-  } = {
-    tableHeader: [],
-    tableBody: []
-  };
+  } = { tableHeader: [], tableBody: [] };
 
   selectOptions: SelectOptions[] = [
     { label: 'For past 7 days', value: 0 },
@@ -50,6 +52,7 @@ export class ForecastTableComponent implements OnInit {
   constructor(private _forecastService: ForecastService) {}
 
   ngOnInit(): void {
+    this.isLoading = true;
     this._forecastService.fetchForecastData()
       .subscribe(data => {
         this.forecastUnits = data.units;
@@ -57,6 +60,12 @@ export class ForecastTableComponent implements OnInit {
         this.forecastData['tableHeader'] = result.tableHeader;
         this.forecastData['tableBody'] = result.tableBody;
         this.paginatorArr = this.calcPaginator(this.filteredData.length, this.rowsPerPage);
+        this.isLoadingError = false;
+        this.isLoading = false;
+      }, (error: HttpErrorResponse) => {
+        this.errorData = { name: error.name, msg: error.message };
+        this.isLoadingError = true;
+        this.isLoading = false;
       })
   }
 

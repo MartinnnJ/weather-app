@@ -15,7 +15,7 @@ export class ForecastPaginatorComponent {
     const link = event.target as HTMLAnchorElement;
     const pageNum = +link.dataset['page']!;
 
-    if (pageNum !== this.selectedPage) {
+    if (pageNum && pageNum !== this.selectedPage) {
       this.selectedPageChange.emit(pageNum);
     }
   }

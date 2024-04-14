@@ -1,10 +1,16 @@
 <h1 class="display-6 text-center">Forecast chart for London</h1>
 
-<app-loading-msg
-  *ngIf="yAxeData.length === 0; else table"
+<app-error-msg
+  *ngIf="!isLoading && isLoadingError"
+  [name]="errorData.name"
+  [msg]="errorData.msg"
 />
 
-<ng-template #table>
+<app-loading-msg
+  *ngIf="isLoading && !isLoadingError"
+/>
+
+<div *ngIf="yAxeData.length > 0">
   <div class="selectors">
     <app-forecast-select
       [options]="filterSelectOptions"
@@ -25,4 +31,4 @@
     [data]="selectedDataset.data"
     [options]="selectedDataset.options"
   ></p-chart>
-</ng-template>
+</div>

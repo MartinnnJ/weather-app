@@ -41,7 +41,6 @@ export class CalculatorComponent {
 
   onFormSubmit(event: SubmitEvent) {
     event.preventDefault();
-    console.log(this.calculatorForm);
     if (this.selectValue === 0) {
       // temp. is in celsius, we must convert it to fahrenheit
       const convertedTemp = this._calcService.celsiusToFahrenheit(this.temperatureValue);

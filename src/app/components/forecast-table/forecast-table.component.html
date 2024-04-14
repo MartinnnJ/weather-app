@@ -1,10 +1,16 @@
 <h1 class="display-6 text-center">Forecast table for London</h1>
 
-<app-loading-msg
-  *ngIf="forecastData.tableBody.length === 0; else table"
+<app-error-msg
+  *ngIf="!isLoading && isLoadingError"
+  [name]="errorData.name"
+  [msg]="errorData.msg"
 />
 
-<ng-template #table>
+<app-loading-msg
+  *ngIf="isLoading && !isLoadingError"
+/>
+
+<div *ngIf="!isLoading && !isLoadingError && forecastData.tableBody.length > 0">
 
   <app-forecast-select
     [options]="selectOptions"
@@ -41,4 +47,4 @@
     [(selectedPage)]="paginatorValue"
   />
 
-</ng-template>
+</div>

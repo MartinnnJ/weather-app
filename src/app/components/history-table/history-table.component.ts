@@ -17,7 +17,6 @@ export class HistoryTableComponent implements OnInit, OnDestroy {
     this.tableData = this._calcServive.readFromLocalStorage();
     this.calculationSubs = this._calcServive.calculation
       .subscribe(data => {
-        console.log(data);
         this.tableData = this._calcServive.saveInLocalStorage(data);
       })
   }

@@ -3,6 +3,7 @@ import SelectOptions from '../../models/select-options.model';
 import { ForecastService } from '../../services/forecast.service';
 import { PrettierPipe } from '../../pipes/prettier.pipe';
 import { DatePipe } from '@angular/common';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-forecast-chart',
@@ -11,6 +12,10 @@ import { DatePipe } from '@angular/common';
   providers: [PrettierPipe, DatePipe]
 })
 export class ForecastChartComponent implements OnInit {
+  isLoading = false;
+  isLoadingError = false;
+  errorData!: { name: string, msg: string };
+
   xAxeData: string[] = [];
   yAxeData: number[][] = [];
 
@@ -65,9 +70,9 @@ export class ForecastChartComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.isLoading = true;
     this._forecastService.fetchForecastData()
       .subscribe(data => {
-        console.log(data)
         for (const [index, arr] of data.data.entries()) {
           if (index === 0) {
             this.xAxeData = arr.slice(1, arr.length);
@@ -80,7 +85,13 @@ export class ForecastChartComponent implements OnInit {
             }
           )
           this.yAxeData.push(arr.slice(1, arr.length));
+          this.isLoadingError = false;
+          this.isLoading = false;
         }
+      }, (error: HttpErrorResponse) => {
+        this.errorData = { name: error.name, msg: error.message };
+        this.isLoadingError = true;
+        this.isLoading = false;
       })
   }
 

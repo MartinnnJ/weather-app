@@ -23,6 +23,7 @@ import { ForecastChartComponent } from './components/forecast-chart/forecast-cha
 import { CalculatorComponent } from './components/calculator/calculator.component';
 import { HistoryTableComponent } from './components/history-table/history-table.component';
 import { LoadingMsgComponent } from './components/loading-msg/loading-msg.component';
+import { ErrorMsgComponent } from './components/error-msg/error-msg.component';
 
 @NgModule({
   declarations: [
@@ -43,6 +44,7 @@ import { LoadingMsgComponent } from './components/loading-msg/loading-msg.compon
     CalculatorComponent,
     HistoryTableComponent,
     LoadingMsgComponent,
+    ErrorMsgComponent,
   ],
   imports: [
     BrowserModule,
