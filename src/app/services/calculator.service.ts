@@ -1,5 +1,31 @@
 import { Injectable } from '@angular/core';
+import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 import { Subject } from 'rxjs';
+
+// custom validator ---> returns validator fn that returns true (error), or null (no error)
+export function createTemperatureValidator(selectedUnit: number): ValidatorFn {
+  return (control: AbstractControl): ValidationErrors | null => {
+    const enteredTemperature = control.value;
+    const limits = new Map([
+      [0, 26.7],
+      [1, 80]
+    ]);
+
+    if (selectedUnit === 0) {
+      const celsiusLimit = limits.get(0)!;
+      if (celsiusLimit > enteredTemperature) {
+        return { isTemperatureInvalid: true };
+      }
+      return null;
+    }
+
+    const fahrenheitLimit = limits.get(1)!;
+    if (fahrenheitLimit > enteredTemperature) {
+      return { isTemperatureInvalid: true }; // ---> 'isTemperatureInvalid' is error name
+    }
+    return null;
+  }
+}
 
 @Injectable({
   providedIn: 'root'

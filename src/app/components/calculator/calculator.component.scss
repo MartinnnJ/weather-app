@@ -3,10 +3,21 @@
 }
 
 form {
+  width: 900px;
+  margin: 0 auto;
   display: flex;
   align-items: flex-end;
-  justify-content: center;
-  gap: 2rem;
+  justify-content: space-between;
+}
+
+.error-container {
+  width: 900px;
+  margin: 0 auto;
+  padding: .5rem 0;
+  
+  .form-text {
+    color: red;
+  }
 }
 
 .preview {

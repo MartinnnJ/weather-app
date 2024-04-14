@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import SelectOptions from '../../models/select-options.model';
-import { CalculatorService } from '../../services/calculator.service';
+import { CalculatorService, createTemperatureValidator } from '../../services/calculator.service';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-calculator',
@@ -20,6 +21,17 @@ export class CalculatorComponent {
   ];
   selectValue = 0; // ---> two-way binding
 
+  calculatorForm = new FormGroup({
+    humidityControl: new FormControl(
+      this.humidityValue,
+      [Validators.required, Validators.min(0), Validators.max(100)]
+    ),
+    temperatureControl: new FormControl(
+      this.temperatureValue,
+      [Validators.required, createTemperatureValidator(this.selectValue)]
+    ),
+  });
+
   constructor(private _calcService: CalculatorService) {}
 
   get reversedUnit() {
@@ -29,6 +41,7 @@ export class CalculatorComponent {
 
   onFormSubmit(event: SubmitEvent) {
     event.preventDefault();
+    console.log(this.calculatorForm);
     if (this.selectValue === 0) {
       // temp. is in celsius, we must convert it to fahrenheit
       const convertedTemp = this._calcService.celsiusToFahrenheit(this.temperatureValue);
@@ -53,6 +66,15 @@ export class CalculatorComponent {
       this.reversedUnit,
       this._calcService.currentTime()
     ]);
+  }
+
+  onSelectChange(val: number) {
+    // setting new custom validator parameter
+    const tempControl = this.calculatorForm.controls['temperatureControl'];
+    tempControl.setValidators(
+      [Validators.required, createTemperatureValidator(val)]
+    );
+    tempControl.updateValueAndValidity(); // checks validity
   }
 
   onHumidityInputChange(event: Event) {

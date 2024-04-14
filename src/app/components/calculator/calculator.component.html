@@ -2,7 +2,10 @@
 
 <div class="calculator">
 
-  <form (submit)="onFormSubmit($event)">
+  <form
+    (submit)="onFormSubmit($event)"
+    [formGroup]="calculatorForm"
+  >
 
     <div>
       <label for="basic-url" class="form-label">Relative Humidity</label>
@@ -12,8 +15,10 @@
           class="form-control"
           id="basic-url"
           aria-describedby="basic-addon3 basic-addon4"
+          name="humidity"
           [value]="humidityValue"
           (input)="onHumidityInputChange($event)"
+          formControlName="humidityControl"
         >
         <span class="input-group-text" id="basic-addon3">%</span>
       </div>
@@ -27,24 +32,76 @@
           class="form-control"
           id="basic-url2"
           aria-describedby="basic-addon3 basic-addon4"
+          name="temperature"
           [value]="temperatureValue"
           (input)="onTemperatureInputChange($event)"
+          formControlName="temperatureControl"
         >
         <span class="input-group-text" id="basic-addon3">
           {{ units[selectValue] }}
         </span>
       </div>
-      <!-- <div class="form-text" id="basic-addon4">Example help text goes outside the input group.</div> -->
     </div>
   
     <app-forecast-select
       [options]="selectOptions"
       [(value)]="selectValue"
+      (valueChange)="onSelectChange($event)"
     />
 
-    <button type="submit" class="btn btn-primary">Calculate</button>
+    <button
+      type="submit"
+      class="btn btn-primary"
+      [disabled]="calculatorForm.invalid"
+    >
+      Calculate
+    </button>
 
   </form>
+
+  <div class="error-container">
+
+    <div
+      class="form-text"
+      id="basic-addon4"
+      *ngIf="calculatorForm.get('humidityControl')?.touched && calculatorForm.get('humidityControl')?.hasError('required')"
+    >
+      Relative humidity value is required
+    </div>
+
+    <div
+      class="form-text"
+      id="basic-addon4"
+      *ngIf="calculatorForm.get('humidityControl')?.hasError('min') || calculatorForm.get('humidityControl')?.hasError('max')"
+    >
+      Relative humidity value must be in range 0 - 100
+    </div>
+
+    <div
+      class="form-text"
+      id="basic-addon4"
+      *ngIf="calculatorForm.get('temperatureControl')?.touched && calculatorForm.get('temperatureControl')?.hasError('required')"
+    >
+      Temperature value is required
+    </div>
+
+    <div
+      class="form-text"
+      id="basic-addon4"
+      *ngIf="calculatorForm.get('temperatureControl')?.touched && calculatorForm.get('temperatureControl')?.hasError('isTemperatureInvalid') && selectValue === 0"
+    >
+      Heat Index value cannot be calculated for temperatures less than 26.7 °C
+    </div>
+
+    <div
+      class="form-text"
+      id="basic-addon4"
+      *ngIf="calculatorForm.get('temperatureControl')?.touched && calculatorForm.get('temperatureControl')?.hasError('isTemperatureInvalid') && selectValue === 1"
+    >
+      Heat Index value cannot be calculated for temperatures less than 80 °F
+    </div>
+
+  </div>
 
   <div class="preview bg-body-tertiary">
     <p>
@@ -61,5 +118,3 @@
     </p>
   </div>
 </div>
-
-<div class="history"></div>
