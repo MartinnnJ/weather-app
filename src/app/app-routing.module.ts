@@ -5,13 +5,17 @@ import { ChartPageComponent } from './pages/chart-page/chart-page.component';
 import { HeatIndexPageComponent } from './pages/heat-index-page/heat-index-page.component';
 import { NotFoundPageComponent } from '@pages/not-found-page/not-found-page.component';
 import { LoginPageComponent } from './pages/login-page/login-page.component';
+import { AuthGuardService } from './services/auth-guard.service';
+import { UserProfileComponent } from '@pages/user-profile/user-profile.component';
+import { LoginGuardService } from './services/login-guard.service';
 
 const routes: Routes = [
   { path: '', redirectTo: '/forecast', pathMatch: 'full' },
   { path: 'forecast', component: ForecastPageComponent },
   { path: 'chart', component: ChartPageComponent },
-  { path: 'calculator', component: HeatIndexPageComponent },
-  { path: 'login', component: LoginPageComponent },
+  { path: 'calculator', canActivate: [AuthGuardService], component: HeatIndexPageComponent },
+  { path: 'profile', canActivate: [AuthGuardService], component: UserProfileComponent },
+  { path: 'login', canActivate: [LoginGuardService], component: LoginPageComponent },
   { path: '**', component: NotFoundPageComponent }
 ];
 

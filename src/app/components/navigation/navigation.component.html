@@ -38,7 +38,10 @@
       </a>
     </li>
 
-    <li class="nav-item">
+    <li
+      *ngIf="!userLoggedIn"
+      class="nav-item"
+    >
       <a routerLink="/login">
         <button
           type="button"
@@ -47,6 +50,30 @@
           Sign In
         </button>
       </a>
+    </li>
+
+    <li
+      *ngIf="userLoggedIn"
+      class="nav-item"
+    >
+      <a
+        class="nav-link"
+        routerLink="/profile"
+        routerLinkActive="active"
+      >
+        Profile
+      </a>
+    </li>
+
+    <li
+      *ngIf="userLoggedIn"
+      class="nav-item"
+    >
+      <app-account-info
+       [imageName]="userData.avatarId"
+       [userEmail]="userData.email"
+       [userName]="userData.name"
+      />
     </li>
 
   </ul>

@@ -1,0 +1,25 @@
+{
+  "users": [
+    {
+      "id": "8905681823344123",
+      "email": "martinko@gmail.com",
+      "password": "12345",
+      "name": "Martin",
+      "avatarId": "01"
+    },
+    {
+      "id": "04422112402359879",
+      "email": "monca0@gmail.com",
+      "password": "123",
+      "name": "Monika",
+      "avatarId": "02"
+    },
+    {
+      "id": "26469143506332804",
+      "email": "veronika2@icloud.com",
+      "password": "qwerty",
+      "name": "Veronika",
+      "avatarId": "03"
+    }
+  ]
+}

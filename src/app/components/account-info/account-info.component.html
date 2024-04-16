@@ -1,0 +1,27 @@
+<div class="dropdown-panel">
+  <div
+    class="panel"
+    (click)="isDropdownOpen = !isDropdownOpen"
+  >
+    <img class="avatar" [src]="imagePath" alt="avatar">
+    <div class="info">
+      <p>{{ userName }}</p>
+      <small>{{ userEmail }}</small>
+    </div>
+    <img class="arrow" src="../../../assets/dropdown-arrow-icon.svg" alt="arrow">
+  </div>
+  <ul
+    class="dropdown-panel-menu bg-body-tertiary"
+    *ngIf="isDropdownOpen"
+  >
+    <li class="menu-item">Settings</li>
+    <li class="menu-item">Messages</li>
+    <li class="menu-item">Policy & Terms</li>
+    <li
+      class="menu-item"
+      (click)="logOutHandler()"
+    >
+      Log Out
+    </li>
+  </ul>
+</div>

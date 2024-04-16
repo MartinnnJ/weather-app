@@ -24,6 +24,9 @@ import { CalculatorComponent } from './components/calculator/calculator.componen
 import { HistoryTableComponent } from './components/history-table/history-table.component';
 import { LoadingMsgComponent } from './components/loading-msg/loading-msg.component';
 import { ErrorMsgComponent } from './components/error-msg/error-msg.component';
+import { AccountInfoComponent } from './components/account-info/account-info.component';
+import { LoginErrorMsgComponent } from './components/login-error-msg/login-error-msg.component';
+import { UserProfileComponent } from './pages/user-profile/user-profile.component';
 
 @NgModule({
   declarations: [
@@ -45,6 +48,9 @@ import { ErrorMsgComponent } from './components/error-msg/error-msg.component';
     HistoryTableComponent,
     LoadingMsgComponent,
     ErrorMsgComponent,
+    AccountInfoComponent,
+    LoginErrorMsgComponent,
+    UserProfileComponent,
   ],
   imports: [
     BrowserModule,
