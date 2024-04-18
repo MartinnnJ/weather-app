@@ -15,10 +15,13 @@
 
 <div *ngIf="yAxeData.length > 0">
   <div class="selectors">
+
     <app-forecast-select
       [options]="filterSelectOptions"
       [(value)]="filterSelectValue"
+      (valueChange)="onFilterSelectChange($event)"
     />
+
     <div class="datasets">
       <p>Dataset:</p>
       <app-forecast-select
@@ -26,12 +29,40 @@
         [(value)]="datasetSelectValue"
       />
     </div>
+
+    <div class="range">
+      <div class="from-select">
+        <p>From:</p>
+        <app-forecast-select
+          [options]="rangeFromSelectOptions"
+          [(value)]="rangeFromSelectValue"
+          (valueChange)="onRangeSelectChange()"
+        />
+      </div>
+      <div class="to-select">
+        <p>To:</p>
+        <app-forecast-select
+          [options]="rangeToSelectOptions"
+          [(value)]="rangeToSelectValue"
+          (valueChange)="onRangeSelectChange()"
+        />
+      </div>
+    </div>
+
   </div>
   
   <p-chart
     type="line"
-    *ngIf="xAxeData.length > 0 && yAxeData.length > 0"
+    *ngIf="xAxeData.length > 0 && yAxeData.length > 0 && !invalidChartData"
     [data]="selectedDataset.data"
     [options]="selectedDataset.options"
   ></p-chart>
+
+  <h1
+    class="display-6 text-center"
+    *ngIf="invalidChartData"
+  >
+    Invalid chart data
+  </h1>
+  
 </div>

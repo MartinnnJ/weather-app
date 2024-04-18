@@ -16,6 +16,27 @@ export class ForecastService {
   ];
   selectedLocation: Location = this._locations[0]; // ---> change default forecast location here
 
+  filterData(selectValue: number, xData: string[], yData: number[][]) {
+    const currentDate = new Date().toISOString().split('T')[0];
+    const index = xData.findIndex(arr => arr.split('T')[0] === currentDate);
+
+    const dataLength = xData.length;
+
+    if (selectValue === 0) {
+      const filteredXData = xData.slice(0, index);
+      const filteredYData = yData.map(arr => {
+        return arr.slice(0, index);
+      });
+      return { filteredXData, filteredYData };
+    }
+
+    const filteredXData = xData.slice(index, dataLength);
+    const filteredYData = yData.map(arr => {
+      return arr.slice(index, dataLength);
+    });
+    return { filteredXData, filteredYData };
+  }
+
   constructor(private _http: HttpClient) {}
 
   fetchForecastData() {

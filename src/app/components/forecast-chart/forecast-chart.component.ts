@@ -27,8 +27,15 @@ export class ForecastChartComponent implements OnInit {
   ];
   filterSelectValue = 1; // ---> two-way binding
 
+  rangeFromSelectOptions: SelectOptions[] = [];
+  rangeFromSelectValue = 0; // ---> two-way binding
+  rangeToSelectOptions: SelectOptions[] = [];
+  rangeToSelectValue = 0; // ---> two-way binding
+
   datasetSelectOptions: SelectOptions[] = [];
   datasetSelectValue = 0; // ---> two-way binding
+
+  invalidChartData = false;
 
   get filteredData() {
     const currentDate = new Date().toISOString().split('T')[0];
@@ -53,13 +60,18 @@ export class ForecastChartComponent implements OnInit {
 
   get selectedDataset() {
     const datasetName = this.datasetSelectOptions.find(unit => unit.value === this.datasetSelectValue);
+
     const formattedXData = this.filteredData.filteredXData.map(timeStr => {
       return this._datePipe.transform(timeStr, 'medium')!;
-    })
+    });
+    const selectedYData = this.filteredData.filteredYData[this.datasetSelectValue];
+
+    const slicedXData = formattedXData.slice(this.rangeFromSelectValue, this.rangeToSelectValue + 1);
+    const slicedYData = selectedYData.slice(this.rangeFromSelectValue, this.rangeToSelectValue + 1);
 
     return this.setChartData(
-      formattedXData,
-      this.filteredData.filteredYData[this.datasetSelectValue],
+      slicedXData,
+      slicedYData,
       datasetName!.label,
       '#0d6efd'
     );
@@ -78,7 +90,7 @@ export class ForecastChartComponent implements OnInit {
       .subscribe(data => {
         for (const [index, arr] of data.data.entries()) {
           if (index === 0) {
-            this.xAxeData = arr.slice(1, arr.length);
+            this.xAxeData = arr.slice(1, arr.length)
             continue;
           }
           this.datasetSelectOptions.push(
@@ -91,11 +103,42 @@ export class ForecastChartComponent implements OnInit {
           this.isLoadingError = false;
           this.isLoading = false;
         }
+        const fData = this._forecastService.filterData(this.filterSelectValue, this.xAxeData, this.yAxeData);
+        this.rangeFromSelectOptions = fData.filteredXData.map((timeStr, index) => {
+          return {
+            label: this._datePipe.transform(timeStr, 'medium')!,
+            value: index
+          }
+        })
+        this.rangeToSelectOptions = this.rangeFromSelectOptions;
+        this.rangeToSelectValue = this.rangeToSelectOptions.length - 1;
+        console.log(fData);
       }, (error: HttpErrorResponse) => {
         this.errorData = { name: error.name, msg: error.message };
         this.isLoadingError = true;
         this.isLoading = false;
       })
+  }
+
+  onFilterSelectChange(val: number) {
+    const fData = this._forecastService.filterData(val, this.xAxeData, this.yAxeData);
+    this.rangeFromSelectOptions = fData.filteredXData.map((timeStr, index) => {
+      return {
+        label: this._datePipe.transform(timeStr, 'medium')!,
+        value: index
+      }
+    })
+    this.rangeToSelectOptions = this.rangeFromSelectOptions;
+    this.rangeFromSelectValue = 0;
+    this.rangeToSelectValue = this.rangeToSelectOptions.length - 1;
+  }
+
+  onRangeSelectChange() {
+    if (this.rangeFromSelectValue >= this.rangeToSelectValue) {
+      this.invalidChartData = true;
+    } else {
+      this.invalidChartData = false;
+    }
   }
 
   setChartData(
