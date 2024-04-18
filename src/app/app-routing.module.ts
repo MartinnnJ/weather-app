@@ -6,7 +6,7 @@ import { HeatIndexPageComponent } from './pages/heat-index-page/heat-index-page.
 import { NotFoundPageComponent } from '@pages/not-found-page/not-found-page.component';
 import { LoginPageComponent } from './pages/login-page/login-page.component';
 import { AuthGuardService } from './services/auth-guard.service';
-import { UserProfileComponent } from '@pages/user-profile/user-profile.component';
+import { UserProfilePageComponent } from '@pages/user-profile-page/user-profile-page.component';
 import { LoginGuardService } from './services/login-guard.service';
 
 const routes: Routes = [
@@ -14,7 +14,7 @@ const routes: Routes = [
   { path: 'forecast', component: ForecastPageComponent },
   { path: 'chart', component: ChartPageComponent },
   { path: 'calculator', canActivate: [AuthGuardService], component: HeatIndexPageComponent },
-  { path: 'profile', canActivate: [AuthGuardService], component: UserProfileComponent },
+  { path: 'profile', canActivate: [AuthGuardService], component: UserProfilePageComponent },
   { path: 'login', canActivate: [LoginGuardService], component: LoginPageComponent },
   { path: '**', component: NotFoundPageComponent }
 ];

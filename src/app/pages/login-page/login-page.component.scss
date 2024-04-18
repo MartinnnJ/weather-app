@@ -4,6 +4,18 @@ h1.display-6 {
   margin: $page-header-margin 0;
 }
 
+svg {
+  width: 25px;
+}
+
+.alert {
+  height: 65px;
+}
+
+.text {
+  font-size: 17px;
+}
+
 form {
   max-width: 400px;
   margin: 0 auto;

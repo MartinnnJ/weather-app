@@ -16,6 +16,8 @@ export class ForecastChartComponent implements OnInit {
   isLoadingError = false;
   errorData!: { name: string, msg: string };
 
+  forecastLocation!: string;
+
   xAxeData: string[] = [];
   yAxeData: number[][] = [];
 
@@ -71,6 +73,7 @@ export class ForecastChartComponent implements OnInit {
 
   ngOnInit(): void {
     this.isLoading = true;
+    this.forecastLocation = this._forecastService.selectedLocation.name;
     this._forecastService.fetchForecastData()
       .subscribe(data => {
         for (const [index, arr] of data.data.entries()) {

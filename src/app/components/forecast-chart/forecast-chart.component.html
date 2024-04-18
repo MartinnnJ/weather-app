@@ -1,4 +1,7 @@
-<h1 class="display-6 text-center">Forecast chart for London</h1>
+<h1 class="display-6 text-center">
+  Forecast chart for
+  <strong>{{ forecastLocation }}</strong>
+</h1>
 
 <app-error-msg
   *ngIf="!isLoading && isLoadingError"

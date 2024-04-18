@@ -26,7 +26,7 @@ import { LoadingMsgComponent } from './components/loading-msg/loading-msg.compon
 import { ErrorMsgComponent } from './components/error-msg/error-msg.component';
 import { AccountInfoComponent } from './components/account-info/account-info.component';
 import { LoginErrorMsgComponent } from './components/login-error-msg/login-error-msg.component';
-import { UserProfileComponent } from './pages/user-profile/user-profile.component';
+import { UserProfilePageComponent } from './pages/user-profile-page/user-profile-page.component';
 
 @NgModule({
   declarations: [
@@ -50,7 +50,7 @@ import { UserProfileComponent } from './pages/user-profile/user-profile.componen
     ErrorMsgComponent,
     AccountInfoComponent,
     LoginErrorMsgComponent,
-    UserProfileComponent,
+    UserProfilePageComponent,
   ],
   imports: [
     BrowserModule,

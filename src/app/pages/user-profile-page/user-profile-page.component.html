@@ -1,0 +1,22 @@
+<div class="container">
+  <h1 class="display-6 text-center">
+    {{ userData.name }}'s profile
+  </h1>
+  <div class="profile-card">
+    <img [src]="imagePath" alt="user-avatar">
+    <div class="user-info">
+      <p>
+        ID:
+        <strong>{{ userData.id }}</strong>
+      </p>
+      <p>
+        Email:
+        <strong>{{ userData.email }}</strong>
+      </p>
+      <p>
+        Name:
+        <strong>{{ userData.name }}</strong>
+      </p>
+    </div>
+  </div>
+</div>

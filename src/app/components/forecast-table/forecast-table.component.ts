@@ -14,6 +14,7 @@ export class ForecastTableComponent implements OnInit {
   isLoadingError = false;
   errorData!: { name: string, msg: string };
 
+  forecastLocation!: string;
   forecastUnits!: ForecastUnits;
   forecastData: {
     tableHeader: string[],
@@ -53,6 +54,7 @@ export class ForecastTableComponent implements OnInit {
 
   ngOnInit(): void {
     this.isLoading = true;
+    this.forecastLocation = this._forecastService.selectedLocation.name;
     this._forecastService.fetchForecastData()
       .subscribe(data => {
         this.forecastUnits = data.units;

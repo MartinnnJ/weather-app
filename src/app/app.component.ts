@@ -7,9 +7,11 @@ import { AuthService } from './services/auth.service';
   styleUrl: './app.component.scss'
 })
 export class AppComponent implements OnInit {
+
   constructor(private _authService: AuthService) {}
 
   ngOnInit(): void {
     this._authService.isUserLoggedIn();
   }
+  
 }
