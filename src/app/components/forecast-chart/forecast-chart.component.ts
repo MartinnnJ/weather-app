@@ -37,34 +37,19 @@ export class ForecastChartComponent implements OnInit {
 
   invalidChartData = false;
 
-  get filteredData() {
-    const currentDate = new Date().toISOString().split('T')[0];
-    const index = this.xAxeData.findIndex(arr => arr.split('T')[0] === currentDate);
-
-    const dataLength = this.xAxeData.length;
-
-    if (this.filterSelectValue === 0) {
-      const filteredXData = this.xAxeData.slice(0, index);
-      const filteredYData = this.yAxeData.map(arr => {
-        return arr.slice(0, index);
-      });
-      return { filteredXData, filteredYData };
-    }
-
-    const filteredXData = this.xAxeData.slice(index, dataLength);
-    const filteredYData = this.yAxeData.map(arr => {
-      return arr.slice(index, dataLength);
-    });
-    return { filteredXData, filteredYData };
-  }
-
-  get selectedDataset() {
+  get selectedData() {
     const datasetName = this.datasetSelectOptions.find(unit => unit.value === this.datasetSelectValue);
 
-    const formattedXData = this.filteredData.filteredXData.map(timeStr => {
+    const filteredData = this._forecastService.filterData(
+      this.filterSelectValue,
+      this.xAxeData,
+      this.yAxeData
+    );
+
+    const formattedXData = filteredData.filteredXData.map(timeStr => {
       return this._datePipe.transform(timeStr, 'medium')!;
     });
-    const selectedYData = this.filteredData.filteredYData[this.datasetSelectValue];
+    const selectedYData = filteredData.filteredYData[this.datasetSelectValue];
 
     const slicedXData = formattedXData.slice(this.rangeFromSelectValue, this.rangeToSelectValue + 1);
     const slicedYData = selectedYData.slice(this.rangeFromSelectValue, this.rangeToSelectValue + 1);
@@ -131,6 +116,7 @@ export class ForecastChartComponent implements OnInit {
     this.rangeToSelectOptions = this.rangeFromSelectOptions;
     this.rangeFromSelectValue = 0;
     this.rangeToSelectValue = this.rangeToSelectOptions.length - 1;
+    this.invalidChartData = false;
   }
 
   onRangeSelectChange() {
